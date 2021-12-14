@@ -32,9 +32,9 @@ namespace PingResult
             this.Begin = new System.Windows.Forms.Button();
             this.Import = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.PingRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.Pinglist = new System.Windows.Forms.RichTextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.DataGridView = new System.Windows.Forms.DataGridView();
+            this.Datashow = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -43,7 +43,7 @@ namespace PingResult
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Datashow)).BeginInit();
             this.SuspendLayout();
             // 
             // Begin
@@ -82,19 +82,19 @@ namespace PingResult
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.PingRichTextBox);
+            this.splitContainer1.Panel2.Controls.Add(this.Pinglist);
             this.splitContainer1.Size = new System.Drawing.Size(319, 631);
             this.splitContainer1.SplitterDistance = 40;
             this.splitContainer1.TabIndex = 3;
             // 
-            // PingRichTextBox
+            // Pinglist
             // 
-            this.PingRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PingRichTextBox.Location = new System.Drawing.Point(0, 0);
-            this.PingRichTextBox.Name = "PingRichTextBox";
-            this.PingRichTextBox.Size = new System.Drawing.Size(319, 587);
-            this.PingRichTextBox.TabIndex = 0;
-            this.PingRichTextBox.Text = "";
+            this.Pinglist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Pinglist.Location = new System.Drawing.Point(0, 0);
+            this.Pinglist.Name = "Pinglist";
+            this.Pinglist.Size = new System.Drawing.Size(319, 587);
+            this.Pinglist.TabIndex = 0;
+            this.Pinglist.Text = "";
             // 
             // splitContainer2
             // 
@@ -108,20 +108,20 @@ namespace PingResult
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.DataGridView);
+            this.splitContainer2.Panel2.Controls.Add(this.Datashow);
             this.splitContainer2.Size = new System.Drawing.Size(975, 637);
             this.splitContainer2.SplitterDistance = 325;
             this.splitContainer2.TabIndex = 4;
             // 
-            // DataGridView
+            // Datashow
             // 
-            this.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridView.Location = new System.Drawing.Point(0, 0);
-            this.DataGridView.Name = "DataGridView";
-            this.DataGridView.RowTemplate.Height = 23;
-            this.DataGridView.Size = new System.Drawing.Size(646, 637);
-            this.DataGridView.TabIndex = 0;
+            this.Datashow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Datashow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Datashow.Location = new System.Drawing.Point(0, 0);
+            this.Datashow.Name = "Datashow";
+            this.Datashow.RowTemplate.Height = 23;
+            this.Datashow.Size = new System.Drawing.Size(646, 637);
+            this.Datashow.TabIndex = 0;
             // 
             // Ping_main
             // 
@@ -141,7 +141,7 @@ namespace PingResult
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Datashow)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -151,8 +151,8 @@ namespace PingResult
         private System.Windows.Forms.Button Import;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.DataGridView DataGridView;
-        private System.Windows.Forms.RichTextBox PingRichTextBox;
+        private System.Windows.Forms.DataGridView Datashow;
+        private System.Windows.Forms.RichTextBox Pinglist;
     }
 }
 
