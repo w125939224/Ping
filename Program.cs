@@ -16,7 +16,7 @@ namespace PingResult
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Ping_main());
+            Application.Run(new ping_Main());
         }
     }
 }
