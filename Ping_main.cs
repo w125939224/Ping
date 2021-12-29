@@ -9,94 +9,60 @@ using System.Windows.Forms;
 
 namespace PingResult
 {
+    #region Directer
     /// <summary>
     /// Directed by 王钦奕
     /// Build Time 2021年12月9日
     /// </summary>
-    public partial class ping_Main : Form
+    #endregion
+    public partial class Ping_Main : Form
     {
-        ///定义全局的数据展示表格，用来赋值给datagridview
+        #region 定义全局的数据展示表格，用来赋值给datagridview
         DataTable datatable = new DataTable();
-        public ping_Main()
+        #endregion
+
+        public Ping_Main()
         {
             InitializeComponent();
+            #region 初始化展示表格
             datatable.Columns.Add("IP");
             datatable.Columns.Add("NetConnect");
             datatable.Columns.Add("DNS");
             datatable.Columns.Add("MAC");
+            #endregion
         }
-        private void begin_Click(object sender, EventArgs e)
+
+        #region 点击ping测试加载计时器，设定600秒一次推送
+        private void Begin_Click(object sender, EventArgs e)
         {
             datatable.Clear();
-            var pingLinesCount = pingRichTextBox.Lines.Count();
-
-            try
+            var pingtimer = new System.Timers.Timer();
+            pingtimer.Interval = 600000;
+            pingtimer.AutoReset = true;
+            pingtimer.Enabled = true;
+            #region 计时器计时（暂未启用）
+            /*
+            var timernumber = 0;
+            try 
             {
-                for (int i = 0; i < pingLinesCount; i++)
+                for (int i = 0; i < ping; i++)
                 {
-                    if (pingRichTextBox.Text != null)
-                    {
-                        var netSefment = pingRichTextBox.Lines[i];
-                        string[] netSefmentArray = netSefment.Split('-', ',', ' ', '。', '~', ':', '.');
-                        var beginNetSegment = netSefmentArray[3];
-                        var endNetSegment = netSefmentArray[7];
-                        if (netSefmentArray[0] == netSefmentArray[4]
-                            && netSefmentArray[1] == netSefmentArray[5]
-                            && netSefmentArray[2] == netSefmentArray[6]
-                            && Convert.ToInt32(beginNetSegment) <= Convert.ToInt32(endNetSegment)
-                            && IPAddress.TryParse(beginNetSegment, out var BeginNetSegmentIP)
-                            && IPAddress.TryParse(endNetSegment, out var EndNetSegmentIP)
-                            )
-                        {
-                            for (var IP = Convert.ToInt32(beginNetSegment); IP <= Convert.ToInt32(endNetSegment); IP++)
-                            {
-                                Ping ping = new Ping();
 
-                                var scanIP_String = netSefmentArray[0] + "." + netSefmentArray[1] + "." + netSefmentArray[2] + "." + Convert.ToString(IP);
-                                PingReply reply = ping.Send(scanIP_String, 1);
-                                DataRow dataRow = datatable.NewRow();
-                                if (showIpOnly.Checked == true)
-                                {
-                                    if (reply.Status == IPStatus.Success)
-                                    {
-                                        dataRow["IP"] = scanIP_String;
-                                        dataRow["NetConnect"] = "connect";
-                                        datatable.Rows.Add(dataRow);
-                                    }
-                                }
-                                else
-                                {
-                                    if (reply.Status == IPStatus.Success)
-                                    {
-                                        dataRow["IP"] = scanIP_String;
-                                        dataRow["NetConnect"] = "connect";
-                                        datatable.Rows.Add(dataRow);
-                                    }
-                                    else
-                                    {
-                                        dataRow["IP"] = scanIP_String;
-                                        dataRow["NetConnect"] = "unconnect";
-                                        datatable.Rows.Add(dataRow);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("无效IP地址，请检查后重新输入。");
-                        }
-                    }
-                    else break;
                 }
             }
+
             catch
             {
-                MessageBox.Show("程序发生未知错误。");
-            }
-            dataGridView.DataSource = datatable;
-            var data = convertDataTableToString(datatable);
-            var info = HttpGet(data);
-            dataGridView.Show();
+
+            }*/
+            #endregion
+            pingtimer.Elapsed += Pingtimer_Elapsed;
+
+            #region 跳过对windows窗体控件线程安全调用，并不解决根本问题。
+            //对 Windows 窗体控件的非线程安全调用方式是从辅助线程直接调用。
+            //调用应用程序时，调试器会引发一个 InvalidOperationException，警告对控件的调用不是线程安全的。
+            #endregion
+            CheckForIllegalCrossThreadCalls = false;
 
             #region 暂时不用代码，仅做if条件参考判断
             /*var PingLinesCount = Pinglist.Lines.Count();
@@ -133,12 +99,114 @@ namespace PingResult
              }*/
             #endregion
         }
-        private void ping_Main_Load(object sender, EventArgs e)
+        #endregion
+
+        #region 计时器到点事件
+        /// <summary>
+        /// 计时器每隔10分钟运行一次代码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Pingtimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            pingRichTextBox.Text = "请在此输入需要扫描的IP段，格式为一行一个IP段。例：192.168.0.1-192.168.0.254。";
-            pingRichTextBox.HideSelection = false;
-            pingRichTextBox.SelectAll();
+            datatable.Clear();
+            var pinglinescount = pingrichtextbox.Lines.Count();
+            try
+            {
+                for (int i = 0; i < pinglinescount; i++)
+                {
+                    if (pingrichtextbox.Text != null)
+                    {
+                        var netsefment = pingrichtextbox.Lines[i];
+                        string[] netsefmentarray = netsefment.Split('-', ',', ' ', '。', '~', ':', '.');
+                        var beginnetsegment = netsefmentarray[3];
+                        var endnetsegment = netsefmentarray[7];
+                        if (netsefmentarray[0] == netsefmentarray[4]
+                            && netsefmentarray[1] == netsefmentarray[5]
+                            && netsefmentarray[2] == netsefmentarray[6]
+                            && Convert.ToInt32(beginnetsegment) <= Convert.ToInt32(endnetsegment)
+                            && IPAddress.TryParse(beginnetsegment, out var BeginNetSegmentIP)
+                            && IPAddress.TryParse(endnetsegment, out var EndNetSegmentIP)
+                            )
+                        {
+                            for (var IP = Convert.ToInt32(beginnetsegment); IP <= Convert.ToInt32(endnetsegment); IP++)
+                            {
+                                Ping ping = new Ping();
+                                var scanIP_string = netsefmentarray[0] + "." + netsefmentarray[1] + "." + netsefmentarray[2] + "." + Convert.ToString(IP);
+                                PingReply reply = ping.Send(scanIP_string, 1);
+                                DataRow dataRow = datatable.NewRow();
+                                if (showiponly.Checked == true)
+                                {
+                                    if (reply.Status == IPStatus.Success)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        dataRow["IP"] = scanIP_string;
+                                        dataRow["NetConnect"] = "unconnect";
+                                        datatable.Rows.Add(dataRow);
+                                    }
+                                }
+                                else
+                                {
+                                    if (reply.Status == IPStatus.Success)
+                                    {
+                                        dataRow["IP"] = scanIP_string;
+                                        dataRow["NetConnect"] = "connect";
+                                        datatable.Rows.Add(dataRow);
+                                    }
+                                    else
+                                    {
+                                        dataRow["IP"] = scanIP_string;
+                                        dataRow["NetConnect"] = "unconnect";
+                                        datatable.Rows.Add(dataRow);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("无效IP地址，请检查后重新输入。");
+                        }
+                    }
+                    else break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("程序发生未知错误。");
+            }
+            datagridview.DataSource = datatable;
+            var data = ConvertDataTableToString(datatable);
+            var info = HttpGet(data);
+            try
+            {
+                if (datatable.Rows.Count == 0)
+                {
+                    datatable.Rows.Add("无掉线情况");
+                }
+                else
+                {
+                    datagridview.Show();
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("转换datatable显示出错。");
+            }
         }
+        #endregion
+
+        #region 窗体加载事件
+        private void Ping_Main_Load(object sender, EventArgs e)
+        {
+            pingrichtextbox.Text = "请在此输入需要扫描的IP段，格式为一行一个IP段。例：192.168.0.1-192.168.0.254。";
+            pingrichtextbox.HideSelection = false;
+            pingrichtextbox.SelectAll();
+        }
+        #endregion
 
         #region 未启用checkbox点击事件
         /// <summary>
@@ -179,14 +247,14 @@ namespace PingResult
         #endregion
 
         #region 刷新按钮点击事件
-        private void reFresh_Click(object sender, EventArgs e)
+        private void refresh_click(object sender, EventArgs e)
         {
 
         }
         #endregion
 
         #region 转换datatable为string
-        public static string convertDataTableToString(DataTable dataTable)
+        public static string ConvertDataTableToString(DataTable dataTable)
         {
             string data = string.Empty;
             for (int i = 0; i < dataTable.Rows.Count; i++)
@@ -198,10 +266,10 @@ namespace PingResult
                     if (j == dataTable.Columns.Count - 1)
                     {
                         if (i != (dataTable.Rows.Count - 1))
-                            data += "\r\n";
+                            data += @"";
                     }
                     else
-                        data += "|";
+                        data += @"|";
                 }
             }
             return data;
