@@ -30,10 +30,10 @@ namespace PingResult
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ping_Main));
             this.Begin = new System.Windows.Forms.Button();
             this.Import = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.timershowtext = new System.Windows.Forms.Label();
             this.refresh = new System.Windows.Forms.Button();
             this.showiponly = new System.Windows.Forms.CheckBox();
             this.pingrichtextbox = new System.Windows.Forms.RichTextBox();
@@ -53,11 +53,10 @@ namespace PingResult
             // 
             // Begin
             // 
-            this.Begin.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Begin.AutoSize = true;
-            this.Begin.Location = new System.Drawing.Point(3, 16);
+            this.Begin.Location = new System.Drawing.Point(0, 2);
             this.Begin.Name = "Begin";
-            this.Begin.Size = new System.Drawing.Size(87, 34);
+            this.Begin.Size = new System.Drawing.Size(87, 35);
             this.Begin.TabIndex = 1;
             this.Begin.Text = "开始ping测试";
             this.Begin.UseVisualStyleBackColor = true;
@@ -65,9 +64,9 @@ namespace PingResult
             // 
             // Import
             // 
-            this.Import.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Import.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Import.AutoSize = true;
-            this.Import.Location = new System.Drawing.Point(240, 16);
+            this.Import.Location = new System.Drawing.Point(243, 3);
             this.Import.Name = "Import";
             this.Import.Size = new System.Drawing.Size(76, 34);
             this.Import.TabIndex = 2;
@@ -82,7 +81,8 @@ namespace PingResult
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.timershowtext);
+            this.splitContainer1.Panel1.AllowDrop = true;
+            this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.refresh);
             this.splitContainer1.Panel1.Controls.Add(this.showiponly);
             this.splitContainer1.Panel1.Controls.Add(this.Begin);
@@ -95,18 +95,12 @@ namespace PingResult
             this.splitContainer1.SplitterDistance = 66;
             this.splitContainer1.TabIndex = 3;
             // 
-            // timershowtext
-            // 
-            this.timershowtext.Location = new System.Drawing.Point(94, 22);
-            this.timershowtext.Name = "timershowtext";
-            this.timershowtext.Size = new System.Drawing.Size(134, 14);
-            this.timershowtext.TabIndex = 5;
-            // 
             // refresh
             // 
-            this.refresh.Location = new System.Drawing.Point(136, 39);
+            this.refresh.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.refresh.Location = new System.Drawing.Point(0, 41);
             this.refresh.Name = "refresh";
-            this.refresh.Size = new System.Drawing.Size(59, 25);
+            this.refresh.Size = new System.Drawing.Size(319, 25);
             this.refresh.TabIndex = 4;
             this.refresh.Text = "刷新";
             this.refresh.UseVisualStyleBackColor = true;
@@ -115,9 +109,9 @@ namespace PingResult
             // showiponly
             // 
             this.showiponly.AutoSize = true;
-            this.showiponly.Location = new System.Drawing.Point(96, 3);
+            this.showiponly.Location = new System.Drawing.Point(93, 3);
             this.showiponly.Name = "showiponly";
-            this.showiponly.Size = new System.Drawing.Size(132, 16);
+            this.showiponly.Size = new System.Drawing.Size(144, 16);
             this.showiponly.TabIndex = 3;
             this.showiponly.Text = "是否只显示不可连接IP";
             this.showiponly.UseVisualStyleBackColor = true;
@@ -162,10 +156,12 @@ namespace PingResult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(975, 637);
             this.Controls.Add(this.splitContainer2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Ping_Main";
-            this.Text = "Ping_main";
+            this.Text = "Ping连接";
             this.Load += new System.EventHandler(this.Ping_Main_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -190,7 +186,6 @@ namespace PingResult
         private System.Windows.Forms.RichTextBox pingrichtextbox;
         private System.Windows.Forms.CheckBox showiponly;
         private System.Windows.Forms.Button refresh;
-        private System.Windows.Forms.Label timershowtext;
         private System.Windows.Forms.Timer pingtimercounter;
     }
 }
