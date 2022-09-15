@@ -282,8 +282,10 @@ namespace PingResult
             //发送到VX的pushplus
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://pushplus.hxtrip.com/send?token=5718f2394c8f4b4dae5f4f996bdd3b9f&content=" + postDataStr);
             #region 未启用服务
+            //机器人发送到QQ群
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://138.2.123.114:5701/send_group_msg?group_id=539726277&message=" + postDataStr);
             //机器人发送到QQ
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://195.15.242.242:5700/send_group_msg?user_id=539726277&message=" + postDataStr);
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://138.2.123.114:5701/send_private_msg?user_id=125939224&message=" + postDataStr);
             //发送到server酱
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://sctapi.ftqq.com/SCT66995TOkM9qjVjUYcNfwClRyAajnDs.send?desp=" + postDataStr);
             #endregion
